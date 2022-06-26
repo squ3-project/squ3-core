@@ -1,0 +1,16 @@
+{
+  "name": "squ3-core",
+  "version": "0.0.1",
+  "description": "Core of Squ3 Game",
+  "main": "index.js",
+  "repository": "https://github.com/squ3-project/squ3-core.git",
+  "author": "el-tumero <tumerpl@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "pck",
+    "build": "pck build"
+  },
+  "dependencies": {
+    "nicepck": "^1.1.3"
+  }
+}
