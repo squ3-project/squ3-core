@@ -11,8 +11,10 @@ import Player from "./layers/Player";
 
 import atlasImg from "../assets/images/atlas.png"
 import skin from "../assets/images/skin.png"
+import KeyboardInput from "./KeyboardInput";
 
 Display.resize(320, 320)
+KeyboardInput.listen()
 
 async function main() {
     const atlas = new Atlas(atlasImg)

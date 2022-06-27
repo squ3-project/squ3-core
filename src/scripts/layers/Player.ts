@@ -1,5 +1,6 @@
 import { copySync } from "typedoc/dist/lib/utils"
 import GameLoop from "../GameLoop"
+import KeyboardInput from "../KeyboardInput"
 import Layer from "../Layer"
 
 export default class Player extends Layer{
@@ -28,12 +29,74 @@ export default class Player extends Layer{
     constructor(_playerSpritesheetImg:HTMLImageElement){
         super()
         this.playerSpritesheetImg = _playerSpritesheetImg
-        this.keyListeners()
+        // this.keyListeners()
+        this.keysHandler()
     }
 
 
-    
     /**
+     * Handles key info form KeyboardInput, 
+     * sets direction of movement and spritesheet source y.
+     * Starts animation if KeyboardInput.getKeysState()[1] is true
+     */
+    private keysHandler():void{
+        KeyboardInput.onChange = () => {
+            const keyInfo = KeyboardInput.getKeysState()
+            if(keyInfo[1]){
+                switch(keyInfo[0]){
+                    case "w":
+                        if(!this.animating) this.animating = true
+                        this.goUp = true
+                        this.sy = 96
+                        break;
+                    case "s":
+                        if(!this.animating) this.animating = true
+                        this.goDown = true
+                        this.sy = 0
+                        break;
+                    case "d":
+                        if(!this.animating) this.animating = true
+                        this.goRight = true
+                        this.sy = 64
+                        break;
+                    case "a":
+                        if(!this.animating) this.animating = true
+                        this.goLeft = true
+                        this.sy = 32
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if(!keyInfo[1]){
+                switch (keyInfo[0]) {
+                    case "w":
+                        this.goUp = false
+                        break;
+                    case "s":
+                        this.goDown = false
+                        break;
+                    case "d":
+                        this.goRight = false
+                        break;
+                    case "a":
+                        this.goLeft = false
+                        break;
+                    default:
+                        break;
+                }
+                this.animating = false
+                this.sy = 0
+                this.sx = 32
+            }
+
+        }
+    }
+
+
+    /**
+     * [DEPRECATED]
      * Listens for w,a,s,d keys and sets direction of movement and spritesheet source y
      * On "keydown" event, gives a sign to start animation 
      */
