@@ -15,6 +15,7 @@ export default class Display{
     public static resize(_width:number, _height:number):void{
         Display.canvas.width = _width
         Display.canvas.height = _height
+        Display.ctx.imageSmoothingEnabled = false
     }
 
 

@@ -19,7 +19,7 @@ export default class GameLoop{
      * (for example: BackgroundLayer goes first, Player goes last)
      * @param layer layer to add
      */
-    public static addToQueue(layer:Layer){
+    public static addToQueue(layer:Layer):void{
         if(layer.isUpdating()) this.updateQueue.push(layer)
         this.drawQueue.push(layer)
     }
@@ -49,10 +49,17 @@ export default class GameLoop{
     /**
      * Updates the frames counter
      */
-    private static setFrames(){
+    private static setFrames():void{
         GameLoop.frames++
         // console.log(GameLoop.frames)
         if(GameLoop.frames === 60) GameLoop.frames = 0
+    }
+
+    /**
+     * Returns accual frame
+     */
+    public static getFrame():number{
+        return GameLoop.frames
     }
 
     /**

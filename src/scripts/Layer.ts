@@ -16,6 +16,7 @@ export default abstract class Layer{
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D
         this.canvas.width = 960 // temp
         this.canvas.height = 960 // temp
+        this.ctx.imageSmoothingEnabled = false
     }
 
     /**

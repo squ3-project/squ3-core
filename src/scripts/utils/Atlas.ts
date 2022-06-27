@@ -20,6 +20,13 @@ export default class Atlas{
         this.cropForBlocks()
     }
 
+    /**
+     * Returns block width on atlas image
+     */
+    public getBlockWidth():number{
+        return this.blockWidth
+    }
+
 
     /**
      * Returns Promise for image load

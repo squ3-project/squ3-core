@@ -3,7 +3,7 @@ import TextureLayer from "./TextureLayer";
 
 export default class TestLayer extends TextureLayer{
     
-    protected updates: boolean = true
+    protected updates: boolean = false
     private x:number = 0
     private y:number = 0
     
@@ -11,17 +11,14 @@ export default class TestLayer extends TextureLayer{
     
     constructor(_atlas:Atlas){
         super(_atlas)
+        this.drawBlock(1, 32, 32)
     }
 
     
 
 
     public update(): void {
-        this.clear()
-        this.x += 1
-        this.y += 1
-
-        this.drawBlock(3, this.x, this.y)
+        // do nothing
         
         
         

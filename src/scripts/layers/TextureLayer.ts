@@ -25,6 +25,6 @@ export default abstract class TextureLayer extends Layer{
      */
     public drawBlock(_id:number, _x:number, _y:number){
         const [sx, sy] = this.atlas.getBlockCoords(_id)
-        this.ctx.drawImage(this.atlas.getTexturesImage(), sx, sy, this.blockSize, this.blockSize, _x, _y, this.blockSize, this.blockSize )
+        this.ctx.drawImage(this.atlas.getTexturesImage(), sx, sy, this.atlas.getBlockWidth(), this.atlas.getBlockWidth(), _x, _y, this.blockSize, this.blockSize)
     }
 }
