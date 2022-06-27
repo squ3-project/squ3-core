@@ -7,6 +7,7 @@ export default abstract class Layer{
     protected ctx:CanvasRenderingContext2D
     protected abstract updates:boolean
     protected blockSize:number = 32
+    protected abstract movesWithCamera:boolean
 
     /**
      * Creates a virtual canvas and refenece to its graphical context
@@ -41,6 +42,14 @@ export default abstract class Layer{
      */
     public isUpdating():boolean{
         return this.updates
+    }
+
+    /**
+     * Returns true or false depends if Layer moves with camera
+     * @returns true if Layer needs to move with camera movement, false if not
+     */
+    public isMovingWithCamera():boolean{
+        return this.movesWithCamera
     }
 
     /**

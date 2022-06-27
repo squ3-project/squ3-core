@@ -1,3 +1,4 @@
+import Camera from "./Camera";
 import Display from "./Display";
 import Layer from "./Layer";
 
@@ -9,6 +10,7 @@ export default class GameLoop{
     private static drawQueue:Layer[] = []
     private static updateQueue:Layer[] = []
     private static frames:number = 0
+    private static camera:Camera = new Camera()
 
     private constructor(){}
 
@@ -36,13 +38,19 @@ export default class GameLoop{
      * Draws layers in the specified order
      */
     private static draw():void{
-        GameLoop.drawQueue.forEach((layer:Layer) => Display.draw(layer.getCanvas(), 0, 0))
+        GameLoop.drawQueue.forEach((layer:Layer) => {
+
+            if(layer.isMovingWithCamera()) Display.draw(layer.getCanvas(), GameLoop.camera.getX(), GameLoop.camera.getY())
+            else Display.draw(layer.getCanvas(), 0, 0)
+            
+        })
     }
 
     /**
      * Updates layers in the specified order
      */
     private static update():void{
+        GameLoop.camera.moveLayers()
         GameLoop.updateQueue.forEach((layer:Layer) => layer.update())
     }
 

@@ -13,7 +13,7 @@ import atlasImg from "../assets/images/atlas.png"
 import skin from "../assets/images/skin.png"
 import KeyboardInput from "./KeyboardInput";
 
-Display.resize(320, 320)
+Display.resize(352, 352)
 KeyboardInput.listen()
 
 async function main() {

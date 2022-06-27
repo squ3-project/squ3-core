@@ -6,6 +6,7 @@ import Layer from "../Layer"
 export default class Player extends Layer{
 
     protected updates: boolean = true
+    protected movesWithCamera: boolean = false
     private goUp:boolean = false
     private goDown:boolean = false
     private goLeft:boolean = false
@@ -40,7 +41,7 @@ export default class Player extends Layer{
      * Starts animation if KeyboardInput.getKeysState()[1] is true
      */
     private keysHandler():void{
-        KeyboardInput.onChange = () => {
+        KeyboardInput.onChangePlayer = () => {
             const keyInfo = KeyboardInput.getKeysState()
             if(keyInfo[1]){
                 switch(keyInfo[0]){
@@ -161,13 +162,13 @@ export default class Player extends Layer{
         const accualFrame = GameLoop.getFrame()
         switch (accualFrame) {
             case 0:
-                this.sx = 0
-                break;
-            case 20:
                 this.sx = 32
                 break;
-            case 40:
+            case 20:
                 this.sx = 64
+                break;
+            case 40:
+                this.sx = 0
                 break;
         
             default:
@@ -186,9 +187,12 @@ export default class Player extends Layer{
         if(this.animating) this.animation()
         
 
-        this.ctx.drawImage(this.playerSpritesheetImg, this.sx, this.sy, 32, 32, this.x, this.y, 32, 32)
+        // for camera stuff
+        this.ctx.drawImage(this.playerSpritesheetImg, this.sx, this.sy, 32, 32, 160, 160, 32, 32)
+        // old solution
+        // this.ctx.drawImage(this.playerSpritesheetImg, this.sx, this.sy, 32, 32, this.x, this.y, 32, 32)
 
-        // this.drawBlock(4, this.x, this.y)
+        
     }
 
 }

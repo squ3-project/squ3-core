@@ -6,6 +6,7 @@ import TextureLayer from "./TextureLayer";
  */
 export default class BackgroundLayer extends TextureLayer{
     protected updates: boolean = false
+    protected movesWithCamera: boolean = true
 
     /**
      * Creates a BackgroundLayer with texture from given Atlas object
