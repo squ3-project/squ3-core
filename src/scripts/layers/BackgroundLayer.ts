@@ -25,7 +25,7 @@ export default class BackgroundLayer extends TextureLayer{
     private drawBackground(_id:number){
         for (let i = 0; i < this.canvas.width/this.blockSize; i++) {
             for (let j = 0; j < this.canvas.width/this.blockSize; j++) {
-                this.drawBlock(_id, i*this.blockSize, j*this.blockSize)
+                this.drawBlock(_id, i, j)
             } 
         }
     }
@@ -34,6 +34,6 @@ export default class BackgroundLayer extends TextureLayer{
      * Not implemented
      */
     public update(): void {
-        // nothing to update
+        throw new Error("Layer doesn't need to update!");
     }
 }

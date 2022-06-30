@@ -177,6 +177,35 @@ export default class Player extends Layer{
         
     }
 
+    /**
+     * Returns x coordinate of Player
+     * @returns x coordinate
+     */
+    public getX():number{
+        return this.x
+    }
+
+     /**
+     * Returns y coordinate of Player
+     * @returns y coordinate
+     */
+    public getY():number{
+        return this.y
+    }
+
+    /**
+     * Return 
+     * @returns [x coordinate, y coordinate]
+     */
+    public getPosition():[number, number]{
+        return [this.x, this.y]
+    }
+
+    /**
+     * Changes Player's position in way depended of direction setted in keyHandler function
+     * Draws Player spritesheet on virtual canvas
+     * Is executed on every animation frame
+     */
     public update():void{
         this.clear()
         if(this.goUp) this.y -= this.speed

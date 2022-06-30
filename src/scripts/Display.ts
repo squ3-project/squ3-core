@@ -13,8 +13,10 @@ export default class Display{
      * @param _height  new height 
      */
     public static resize(_width:number, _height:number):void{
-        Display.canvas.width = _width
-        Display.canvas.height = _height
+        Display.canvas.style.width = _width * 2 + "px" // width in html
+        Display.canvas.style.height = _height * 2 + "px" // height in html
+        Display.canvas.width = _width // how much blocks are visible on canvas (how big viewport is). For example 352/32 = 11 blocks. 
+        Display.canvas.height = _height // how many blocks are visible on canvas (how big viewport is). For example 352/32 = 11 blocks.  
         Display.ctx.imageSmoothingEnabled = false
     }
 

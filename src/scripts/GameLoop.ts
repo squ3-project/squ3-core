@@ -10,7 +10,7 @@ export default class GameLoop{
     private static drawQueue:Layer[] = []
     private static updateQueue:Layer[] = []
     private static frames:number = 0
-    private static camera:Camera = new Camera()
+    private static camera:Camera
 
     private constructor(){}
 
@@ -32,6 +32,15 @@ export default class GameLoop{
      */
     public static start():void{
         window.onload = (e:Event) => setInterval(GameLoop.loop, 1000/60)
+    }
+
+    /**
+     * Creates camera and place it in given Player position.
+     * NOTE: You should pass here player.getPosition() 
+     * @param playerPosition [x coordinate, y coordinate]
+     */
+    public static createCamera(playerPosition:[number, number]):void{
+        GameLoop.camera = new Camera(playerPosition[0], playerPosition[1])
     }
 
     /**
@@ -71,7 +80,7 @@ export default class GameLoop{
     }
 
     /**
-     * Calls draw and update methods 
+     * Calls draw and update methods, cleans Display and set accual frame
      */
     private static loop():void{
         Display.clear()

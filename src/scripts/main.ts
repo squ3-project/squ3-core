@@ -1,17 +1,23 @@
+// ./
 import Display from "./Display";
+import GameLoop from "./GameLoop";
+import KeyboardInput from "./KeyboardInput";
+
+// ./layer
+import BackgroundLayer from "./layers/BackgroundLayer";
+import Player from "./layers/Player";
+import StructureLayer from "./layers/StructureLayer";
+
+// ./utils
+import mapJson from "./utils/map.json"
 import Atlas from "./utils/Atlas";
 import loadImage from "./utils/TextureLoader";
 
-import GameLoop from "./GameLoop";
-import BackgroundLayer from "./layers/BackgroundLayer";
-
-import TestLayer from "./layers/TestLayer";
-import Layer from "./Layer";
-import Player from "./layers/Player";
-
+// ../assets
 import atlasImg from "../assets/images/atlas.png"
 import skin from "../assets/images/skin.png"
-import KeyboardInput from "./KeyboardInput";
+
+
 
 Display.resize(352, 352)
 KeyboardInput.listen()
@@ -22,11 +28,11 @@ async function main() {
     const playerSkinImg = await loadImage(skin)
     console.log("Textures loaded!")
     const bgLayer = new BackgroundLayer(atlas, 2)
-    const test = new TestLayer(atlas)
+    const structLayer = new StructureLayer(atlas, mapJson.mapString)
     const player = new Player(playerSkinImg)
-    // const test = new TestLayer(atlas)
+    GameLoop.createCamera(player.getPosition())
     GameLoop.addToQueue(bgLayer)
-    GameLoop.addToQueue(test)
+    GameLoop.addToQueue(structLayer)
     GameLoop.addToQueue(player)
     GameLoop.start()
 

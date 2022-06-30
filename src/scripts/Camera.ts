@@ -1,5 +1,4 @@
 import KeyboardInput from "./KeyboardInput";
-import TextureLayer from "./layers/TextureLayer";
 
 export default class Camera{
 
@@ -12,13 +11,26 @@ export default class Camera{
     private y:number = 0
 
 
-    constructor(){
+    /**
+     * Places camera in specified position (should be Player position [x,y] ) and creates keyHandler
+     * for handling w,a,s,d keys (moving camera)
+     * @param _x x coordinate
+     * @param _y y coordiante
+     */
+    constructor(_x:number, _y:number){
         console.log("Camera created!")
+        // inital position of camera
+        this.x = _x + 352/2 - 32/2 
+        this.y = _y + 352/2 - 32/2
         this.keysHandler()
     }
 
 
 
+   /**
+     * Handles key info form KeyboardInput, 
+     * sets direction of layer movement.
+     */
     private keysHandler():void{
         KeyboardInput.onChangeCamera = () => {
             const keyInfo = KeyboardInput.getKeysState()
@@ -62,6 +74,10 @@ export default class Camera{
         }
     }
 
+    /**
+     * Moves layers is way depended of direction setted in keyHandler
+     * Is called in GameLoop on every call of update function (every frame)
+     */
     public moveLayers():void {
         if(this.goUp) this.y += 2
         if(this.goDown) this.y -= 2
@@ -69,10 +85,18 @@ export default class Camera{
         if(this.goLeft) this.x += 2
     }
 
+     /**
+     * Return x coordinate of Camera
+     * @returns x coordinate
+     */
     public getX():number{
         return this.x
     }
 
+     /**
+     * Return y coordinate of Camera
+     * @returns y coordinate
+     */
     public getY():number{
         return this.y
     }
