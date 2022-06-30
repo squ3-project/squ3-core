@@ -19,18 +19,18 @@ for (let i = 0; i < len; i++) {
 mapArray[91] = "2"
 collisionArray[91] = "1"
 
-mapArray[33] = "17"
-collisionArray[33] = "1"
+mapArray[95] = "17"
+collisionArray[95] = "1"
 
 mapString = mapArray.toString().replace(/,/g, ';')
 collisionString = collisionArray.toString().replace(/,/g, '')
 
 const mapObject:any = {}
 
-mapObject["backgroundBlockId"] = 1
+mapObject["backgroundBlockId"] = 0
 mapObject["mapString"] = mapString
 mapObject["collisionString"] = collisionString
 
-fs.writeFile(path.resolve(__dirname, 'map.json'), JSON.stringify(mapObject), (err:Error) => {
+fs.writeFile(path.resolve(__dirname, 'map2.json'), JSON.stringify(mapObject), (err:Error) => {
     if(err) throw err
 })

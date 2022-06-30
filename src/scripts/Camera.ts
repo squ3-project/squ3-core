@@ -21,8 +21,8 @@ export default class Camera{
      */
     public static init(_x:number, _y:number){
         const [width, height] = Display.getCanvasDimentions()
-        Camera.x = _x + width/2 - 32/2 
-        Camera.y = _y + height/2 - 32/2
+        Camera.x = -_x + width/2 - 32/2 
+        Camera.y = -_y + height/2 - 32/2
         Camera.keysHandler()
         console.log("Camera setted!")
     }

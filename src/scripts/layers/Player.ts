@@ -153,13 +153,22 @@ export default class Player extends Layer{
     }
 
     /**
+     * Sets Player's position on Plot
+     * @param _x x coordinate
+     * @param _y y coordinate
+     */
+    public setPosition(_x:number, _y:number){
+        this.x = _x
+        this.y = _y
+    }
+
+    /**
      * Changes Player's position in way depended of direction setted in keyHandler function
      * Draws Player spritesheet on virtual canvas
      * Is executed on every animation frame
      */
     public update():void{
         this.clear()
-
         this.collision?.getColliders().forEach((collider:Collider) => {
             const move = collider.check(this.x, this.y)
             if(move[0]){

@@ -11,6 +11,7 @@ import StructureLayer from "./layers/StructureLayer";
 
 // ./utils
 import mapJson from "./utils/map.json"
+import map2Json from "./utils/map2.json"
 import Atlas from "./utils/Atlas";
 import loadImage from "./utils/TextureLoader";
 
@@ -32,9 +33,29 @@ async function main() {
     const playerSkinImg = await loadImage(skin)
     const player = new Player(playerSkinImg)
     console.log("Textures loaded!")
+    player.setPosition(32, 32)
 
-    const plot = new Plot(0, mapJson, atlas)
+    let plot = new Plot(0, mapJson, atlas)
     plot.addPlayer(player)
+   
+
+    // for test
+    document.addEventListener("keydown", (e:KeyboardEvent) => {
+        if(e.key === "k"){
+
+            if(plot.getId() === 1){
+                plot = new Plot(0, mapJson, atlas)
+                player.setPosition(32, 32)
+                plot.addPlayer(player)
+                return
+            }
+
+            plot = new Plot(1, map2Json, atlas)
+            player.setPosition(64, 64)
+            plot.addPlayer(player)
+                     
+        }
+    })
     
     GameLoop.start()
 

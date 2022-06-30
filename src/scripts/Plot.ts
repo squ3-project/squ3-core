@@ -38,5 +38,9 @@ export default class Plot{
         GameLoop.addToQueue(_player)
     }
 
+    public getId():number{
+        return this.id
+    }
+
     
 }
