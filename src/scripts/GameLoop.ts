@@ -35,12 +35,13 @@ export default class GameLoop{
     }
 
     /**
-     * Creates camera and place it in given Player position.
+     * Place Camera in given Player position.
      * NOTE: You should pass here player.getPosition() 
      * @param playerPosition [x coordinate, y coordinate]
      */
-    public static createCamera(playerPosition:[number, number]):void{
-        GameLoop.camera = new Camera(playerPosition[0], playerPosition[1])
+    public static setCamera(playerPosition:[number, number]):void{
+        Camera.init(playerPosition[0], playerPosition[1])
+        // GameLoop.camera = new Camera(playerPosition[0], playerPosition[1])
     }
 
     /**
@@ -49,7 +50,7 @@ export default class GameLoop{
     private static draw():void{
         GameLoop.drawQueue.forEach((layer:Layer) => {
 
-            if(layer.isMovingWithCamera()) Display.draw(layer.getCanvas(), GameLoop.camera.getX(), GameLoop.camera.getY())
+            if(layer.isMovingWithCamera()) Display.draw(layer.getCanvas(), Camera.getX(), Camera.getY())
             else Display.draw(layer.getCanvas(), 0, 0)
             
         })
@@ -59,7 +60,7 @@ export default class GameLoop{
      * Updates layers in the specified order
      */
     private static update():void{
-        GameLoop.camera.moveLayers()
+        Camera.moveLayers()
         GameLoop.updateQueue.forEach((layer:Layer) => layer.update())
     }
 

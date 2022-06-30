@@ -20,6 +20,15 @@ export default class Display{
         Display.ctx.imageSmoothingEnabled = false
     }
 
+    
+    /**
+     * Retuns canvas dimentions (context dimentions, not HTML height and width)
+     * @returns [width, height]
+     */
+    public static getCanvasDimentions():[number, number]{
+        return [Display.canvas.width, Display.canvas.height] 
+    }
+
 
     /**
      * Draws the content on HTML Canvas

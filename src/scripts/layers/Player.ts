@@ -1,4 +1,6 @@
-import { copySync } from "typedoc/dist/lib/utils"
+import Camera from "../Camera"
+import Collider from "../Collider"
+import Collision from "../Collision"
 import GameLoop from "../GameLoop"
 import KeyboardInput from "../KeyboardInput"
 import Layer from "../Layer"
@@ -11,9 +13,13 @@ export default class Player extends Layer{
     private goDown:boolean = false
     private goLeft:boolean = false
     private goRight:boolean = false
-    private speed:number = 2
+
+    private collision?:Collision
+ 
     private x:number = 0
     private y:number = 0
+
+
     private playerSpritesheetImg:HTMLImageElement
     private animating:boolean = false
 
@@ -95,66 +101,6 @@ export default class Player extends Layer{
         }
     }
 
-
-    /**
-     * [DEPRECATED]
-     * Listens for w,a,s,d keys and sets direction of movement and spritesheet source y
-     * On "keydown" event, gives a sign to start animation 
-     */
-    private keyListeners():void{
-        document.addEventListener("keydown", (e:KeyboardEvent) => {
-            switch (e.key) {
-                case "w":
-                    if(!this.animating) this.animating = true
-                    this.goUp = true
-                    this.sy = 96
-                    break;
-                case "s":
-                    if(!this.animating) this.animating = true
-                    this.goDown = true
-                    this.sy = 0
-                    break;
-                case "d":
-                    if(!this.animating) this.animating = true
-                    this.goRight = true
-                    this.sy = 64
-                    break;
-                case "a":
-                    if(!this.animating) this.animating = true
-                    this.goLeft = true
-                    this.sy = 32
-                    break;
-                default:
-                    break;
-            }
-
-            
-        })
-
-        document.addEventListener("keyup", (e:KeyboardEvent) => {
-            switch (e.key) {
-                case "w":
-                    this.goUp = false
-                    break;
-                case "s":
-                    this.goDown = false
-                    break;
-                case "d":
-                    this.goRight = false
-                    break;
-                case "a":
-                    this.goLeft = false
-                    break;
-                default:
-                    break;
-            }
-            this.animating = false
-            this.sy = 0
-            this.sx = 32
-        })
-
-    }
-
     /**
      * Handles animation (changing sx on choosed frames (0, 20, 40))
      */
@@ -175,6 +121,11 @@ export default class Player extends Layer{
                 break;
         }
         
+    }
+
+
+    public addCollision(_collision:Collision){
+        this.collision = _collision
     }
 
     /**
@@ -208,10 +159,19 @@ export default class Player extends Layer{
      */
     public update():void{
         this.clear()
-        if(this.goUp) this.y -= this.speed
-        if(this.goDown) this.y += this.speed
-        if(this.goLeft) this.x -= this.speed
-        if(this.goRight) this.x += this.speed
+
+        this.collision?.getColliders().forEach((collider:Collider) => {
+            const move = collider.check(this.x, this.y)
+            if(move[0]){
+                this.x += move[1]
+                this.y += move[2]
+            }
+        })
+
+        if(this.goUp) this.y -= Camera.getSpeed()
+        if(this.goDown) this.y += Camera.getSpeed()
+        if(this.goLeft) this.x -= Camera.getSpeed()
+        if(this.goRight) this.x += Camera.getSpeed()
 
         if(this.animating) this.animation()
         

@@ -1,14 +1,16 @@
+import Display from "./Display";
 import KeyboardInput from "./KeyboardInput";
 
 export default class Camera{
 
-    private goUp:boolean = false
-    private goDown:boolean = false
-    private goRight:boolean = false
-    private goLeft:boolean = false
+    private static goUp:boolean = false
+    private static goDown:boolean = false
+    private static goRight:boolean = false
+    private static goLeft:boolean = false
 
-    private x:number = 0
-    private y:number = 0
+    private static speed = 2
+    private static x:number = 0
+    private static y:number = 0
 
 
     /**
@@ -17,12 +19,12 @@ export default class Camera{
      * @param _x x coordinate
      * @param _y y coordiante
      */
-    constructor(_x:number, _y:number){
-        console.log("Camera created!")
-        // inital position of camera
-        this.x = _x + 352/2 - 32/2 
-        this.y = _y + 352/2 - 32/2
-        this.keysHandler()
+    public static init(_x:number, _y:number){
+        const [width, height] = Display.getCanvasDimentions()
+        Camera.x = _x + width/2 - 32/2 
+        Camera.y = _y + height/2 - 32/2
+        Camera.keysHandler()
+        console.log("Camera setted!")
     }
 
 
@@ -31,22 +33,22 @@ export default class Camera{
      * Handles key info form KeyboardInput, 
      * sets direction of layer movement.
      */
-    private keysHandler():void{
+    private static keysHandler():void{
         KeyboardInput.onChangeCamera = () => {
             const keyInfo = KeyboardInput.getKeysState()
             if(keyInfo[1]){
                 switch(keyInfo[0]){
                     case "w": 
-                        this.goUp = true
+                        Camera.goUp = true
                         break;
                     case "s":
-                        this.goDown = true
+                        Camera.goDown = true
                         break;
                     case "d":
-                        this.goRight = true
+                        Camera.goRight = true
                         break;
                     case "a":
-                        this.goLeft = true
+                        Camera.goLeft = true
                         break;
                     default:
                         break;
@@ -56,16 +58,16 @@ export default class Camera{
             if(!keyInfo[1]){
                 switch (keyInfo[0]) {
                     case "w":
-                        this.goUp = false
+                        Camera.goUp = false
                         break;
                     case "s":
-                        this.goDown = false
+                        Camera.goDown = false
                         break;
                     case "d":
-                        this.goRight = false
+                        Camera.goRight = false
                         break;
                     case "a":
-                        this.goLeft = false
+                        Camera.goLeft = false
                         break;
                     default:
                         break;
@@ -78,27 +80,39 @@ export default class Camera{
      * Moves layers is way depended of direction setted in keyHandler
      * Is called in GameLoop on every call of update function (every frame)
      */
-    public moveLayers():void {
-        if(this.goUp) this.y += 2
-        if(this.goDown) this.y -= 2
-        if(this.goRight) this.x -= 2
-        if(this.goLeft) this.x += 2
+    public static moveLayers():void {
+        if(Camera.goUp) Camera.y += Camera.speed
+        if(Camera.goDown) Camera.y -= Camera.speed
+        if(Camera.goRight) Camera.x -= Camera.speed
+        if(Camera.goLeft) Camera.x += Camera.speed
+    }
+
+    public static collsionMoveX(_speedX:number):void{
+        Camera.x -= _speedX
+    }
+
+    public static collsionMoveY(_speedY:number):void{
+        Camera.y -= _speedY
+    }
+
+    public static getSpeed():number{
+        return Camera.speed
     }
 
      /**
      * Return x coordinate of Camera
      * @returns x coordinate
      */
-    public getX():number{
-        return this.x
+    public static getX():number{
+        return Camera.x
     }
 
      /**
      * Return y coordinate of Camera
      * @returns y coordinate
      */
-    public getY():number{
-        return this.y
+    public static getY():number{
+        return Camera.y
     }
 
 }

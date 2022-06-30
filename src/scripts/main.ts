@@ -2,6 +2,7 @@
 import Display from "./Display";
 import GameLoop from "./GameLoop";
 import KeyboardInput from "./KeyboardInput";
+import Collision from "./Collision";
 
 // ./layer
 import BackgroundLayer from "./layers/BackgroundLayer";
@@ -19,7 +20,8 @@ import skin from "../assets/images/skin.png"
 
 
 
-Display.resize(352, 352)
+
+Display.resize(352, 352) // viewport 11x11 blocks
 KeyboardInput.listen()
 
 async function main() {
@@ -30,7 +32,9 @@ async function main() {
     const bgLayer = new BackgroundLayer(atlas, 2)
     const structLayer = new StructureLayer(atlas, mapJson.mapString)
     const player = new Player(playerSkinImg)
-    GameLoop.createCamera(player.getPosition())
+    const collision = new Collision(mapJson.collisionString)
+    player.addCollision(collision)
+    GameLoop.setCamera(player.getPosition())
     GameLoop.addToQueue(bgLayer)
     GameLoop.addToQueue(structLayer)
     GameLoop.addToQueue(player)

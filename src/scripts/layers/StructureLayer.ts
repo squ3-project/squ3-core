@@ -33,12 +33,14 @@ export default class StructureLayer extends TextureLayer{
      */
     private placeBlocks(_blocksGridString:string):void{
         const blocksGridArray = _blocksGridString.split(";")
-        const blockPerRow = blocksGridArray.length/this.blockSize
-        for (let i = 0; i < blockPerRow**2; i++) {
+        const blocksPerRow = Math.sqrt(blocksGridArray.length)
+        for (let i = 0; i < blocksPerRow**2; i++) {
             const id = parseInt(blocksGridArray[i])
             if(!isNaN(id)){
-                const x = i - Math.floor(i/blockPerRow)*blockPerRow
-                const y = Math.floor(i/blockPerRow)
+
+                const y = Math.floor(i/blocksPerRow)
+                const x = i - y*blocksPerRow
+                
                 this.drawBlock(id, x, y)
             }
         }
