@@ -37,10 +37,8 @@ export default class StructureLayer extends TextureLayer{
         for (let i = 0; i < blocksPerRow**2; i++) {
             const id = parseInt(blocksGridArray[i])
             if(!isNaN(id)){
-
                 const y = Math.floor(i/blocksPerRow)
                 const x = i - y*blocksPerRow
-                
                 this.drawBlock(id, x, y)
             }
         }

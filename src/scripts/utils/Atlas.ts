@@ -42,10 +42,10 @@ export default class Atlas{
      * Maps block id to coordinates on texturesImage (sx, sy).
      */
     private cropForBlocks():void{
-        this.blockId[0] = [-this.blockWidth, -this.blockWidth] // id = 0 is empty (air block) 
+        // this.blockId[0] = [-this.blockWidth, -this.blockWidth] // id = 0 is empty (air block) 
         for (let i = 0; i < (this.blocksPerRow)**2; i++) {
-            const j = Math.floor(i/this.blocksPerRow)*this.blocksPerRow
-            this.blockId[i+1] = [(i-j)*this.blockWidth, j*this.blockWidth]
+            const j = Math.floor(i/this.blocksPerRow)
+            this.blockId.push([(i-(j*this.blocksPerRow))*this.blockWidth, j*this.blockWidth])
         }
     }
 

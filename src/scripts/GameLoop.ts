@@ -10,7 +10,6 @@ export default class GameLoop{
     private static drawQueue:Layer[] = []
     private static updateQueue:Layer[] = []
     private static frames:number = 0
-    private static camera:Camera
 
     private constructor(){}
 
@@ -54,6 +53,11 @@ export default class GameLoop{
             else Display.draw(layer.getCanvas(), 0, 0)
             
         })
+    }
+
+    public static clearQueue():void{
+        GameLoop.drawQueue = []
+        GameLoop.updateQueue = []
     }
 
     /**

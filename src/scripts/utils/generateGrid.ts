@@ -16,10 +16,10 @@ for (let i = 0; i < len; i++) {
     collisionArray[i] = "0"
 }
 
-mapArray[91] = "1"
+mapArray[91] = "2"
 collisionArray[91] = "1"
 
-mapArray[33] = "3"
+mapArray[33] = "17"
 collisionArray[33] = "1"
 
 mapString = mapArray.toString().replace(/,/g, ';')
@@ -27,13 +27,10 @@ collisionString = collisionArray.toString().replace(/,/g, '')
 
 const mapObject:any = {}
 
+mapObject["backgroundBlockId"] = 1
 mapObject["mapString"] = mapString
 mapObject["collisionString"] = collisionString
 
-console.log()
 fs.writeFile(path.resolve(__dirname, 'map.json'), JSON.stringify(mapObject), (err:Error) => {
     if(err) throw err
 })
-// fs.we
-
-// console.log(mapString)

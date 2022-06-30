@@ -17,6 +17,8 @@ import loadImage from "./utils/TextureLoader";
 // ../assets
 import atlasImg from "../assets/images/atlas.png"
 import skin from "../assets/images/skin.png"
+import Plot from "./Plot";
+       
 
 
 
@@ -28,16 +30,12 @@ async function main() {
     const atlas = new Atlas(atlasImg)
     await atlas.loadImage()
     const playerSkinImg = await loadImage(skin)
-    console.log("Textures loaded!")
-    const bgLayer = new BackgroundLayer(atlas, 2)
-    const structLayer = new StructureLayer(atlas, mapJson.mapString)
     const player = new Player(playerSkinImg)
-    const collision = new Collision(mapJson.collisionString)
-    player.addCollision(collision)
-    GameLoop.setCamera(player.getPosition())
-    GameLoop.addToQueue(bgLayer)
-    GameLoop.addToQueue(structLayer)
-    GameLoop.addToQueue(player)
+    console.log("Textures loaded!")
+
+    const plot = new Plot(0, mapJson, atlas)
+    plot.addPlayer(player)
+    
     GameLoop.start()
 
 }
