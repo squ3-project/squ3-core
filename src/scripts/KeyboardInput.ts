@@ -13,6 +13,7 @@ export default class KeyboardInput{
             KeyboardInput.currentKey = e.key
             KeyboardInput.onChangePlayer()
             KeyboardInput.onChangeCamera()
+            KeyboardInput.onChangeInteractions()
             
             // if(e.key.match(/^(w|a|s|d)$/)) console.log("Player keys!")
         })
@@ -22,6 +23,7 @@ export default class KeyboardInput{
             KeyboardInput.currentKey = e.key
             KeyboardInput.onChangePlayer()
             KeyboardInput.onChangeCamera()
+            KeyboardInput.onChangeInteractions()
         })
     }
 
@@ -41,6 +43,15 @@ export default class KeyboardInput{
     public static onChangeCamera() {
         throw new Error("Method not implemented.")
     }
+
+    /**
+     * Is triggered on keydown or keyup event. Dedicated for Interactions class.
+     */
+     public static onChangeInteractions() {
+        throw new Error("Method not implemented.")
+    }
+
+
 
     /**
      * Returns key state

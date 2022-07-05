@@ -1,3 +1,5 @@
+import Display from "./Display"
+
 /**
  * For creating graphical layer
  */
@@ -6,7 +8,7 @@ export default abstract class Layer{
     protected canvas:HTMLCanvasElement 
     protected ctx:CanvasRenderingContext2D
     protected abstract updates:boolean
-    protected blockSize:number = 32
+    protected blockSize:number = Display.getBlockSize()
     protected abstract movesWithCamera:boolean
 
     /**

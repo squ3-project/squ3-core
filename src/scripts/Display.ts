@@ -4,6 +4,7 @@
 export default class Display{
     private static canvas = document.querySelector('#canvas') as HTMLCanvasElement
     private static ctx = Display.canvas.getContext("2d") as CanvasRenderingContext2D
+    private static blockSize = 32
 
     private constructor(){}
 
@@ -27,6 +28,10 @@ export default class Display{
      */
     public static getCanvasDimentions():[number, number]{
         return [Display.canvas.width, Display.canvas.height] 
+    }
+
+    public static getBlockSize():number{
+        return this.blockSize
     }
 
 

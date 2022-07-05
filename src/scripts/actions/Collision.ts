@@ -1,4 +1,4 @@
-import Rectangle from "./types/Rectangle";
+import Rectangle from "../types/Rectangle";
 import Collider from "./Collider";
 
 

@@ -8,9 +8,20 @@ interface Structure{
     c:boolean
 }
 
+interface Portal{
+    x:number
+    y:number
+    to:number
+}
+
+interface Interactions{
+    portals: Portal[]
+}
+
 interface MapBefore{
     backgroundBlock:number
-    structures: Structure[]
+    structures: Structure[],
+    interactions: Interactions
 }
 
 let mapString:string
@@ -34,6 +45,7 @@ async function createMapStrings(path:string){
     initializeArrays()
     const mapBefore = await readBefore(path)
 
+    // converters
     mapBefore.structures.forEach((structure:Structure) => {
         const position = calcutePositionInArray(structure.x, structure.y)
         mapArray[position] = structure.id.toString()
@@ -46,6 +58,8 @@ async function createMapStrings(path:string){
     mapObject["mapString"] = mapString
     mapObject["collisionString"] = collisionString  
 
+     // things which are passed unchanged
+    mapObject["interactions"] = mapBefore.interactions
 }
 
 function calcutePositionInArray(x:number, y:number):number{

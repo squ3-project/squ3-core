@@ -1,4 +1,5 @@
-import Collision from "./Collision";
+import Collision from "./actions/Collision";
+import Interactions, {InteractionList} from "./actions/Interactions";
 import GameLoop from "./GameLoop";
 import BackgroundLayer from "./layers/BackgroundLayer";
 import Player from "./layers/Player";
@@ -6,10 +7,12 @@ import StructureLayer from "./layers/StructureLayer";
 import Atlas from "./utils/Atlas";
 
 type mapObject = {
-    mapString:string,
-    collisionString:string,
     backgroundBlockId:number
+    mapString:string,
+    collisionString:string
+    interactions: InteractionList
 }
+
 
 export default class Plot{
     private id:number
@@ -33,7 +36,9 @@ export default class Plot{
 
     public addPlayer(_player:Player){
         const collision = new Collision(this.mapJson.collisionString)
+        const interactions = new Interactions(this.mapJson.interactions)
         _player.addCollision(collision)
+        _player.addInteractions(interactions)
         GameLoop.setCamera(_player.getPosition())
         GameLoop.addToQueue(_player)
     }

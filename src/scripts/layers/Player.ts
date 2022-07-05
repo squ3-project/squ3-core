@@ -1,9 +1,11 @@
 import Camera from "../Camera"
-import Collider from "../Collider"
-import Collision from "../Collision"
+import Collider from "../actions/Collider"
+import Collision from "../actions/Collision"
 import GameLoop from "../GameLoop"
 import KeyboardInput from "../KeyboardInput"
+import Interactions from "../actions/Interactions"
 import Layer from "../Layer"
+import { Interaction } from "../actions/Interaction"
 
 export default class Player extends Layer{
 
@@ -26,6 +28,7 @@ export default class Player extends Layer{
     // source x, y (playerSpriteSheetImg)
     private sy:number = 0
     private sx:number = 0
+    private interactions?: Interactions
     
 
 
@@ -128,6 +131,14 @@ export default class Player extends Layer{
         this.collision = _collision
     }
 
+    public addInteractions(_interactions:Interactions){
+        this.interactions = _interactions
+    }
+
+    public getInteractions():Interactions {
+        return this.interactions!
+    }
+
     /**
      * Returns x coordinate of Player
      * @returns x coordinate
@@ -177,6 +188,8 @@ export default class Player extends Layer{
             }
         })
 
+        if(this.interactions) this.interactions.handleInteractions(this.x, this.y)
+        
         if(this.goUp) this.y -= Camera.getSpeed()
         if(this.goDown) this.y += Camera.getSpeed()
         if(this.goLeft) this.x -= Camera.getSpeed()
@@ -184,12 +197,7 @@ export default class Player extends Layer{
 
         if(this.animating) this.animation()
         
-
-        // for camera stuff
         this.ctx.drawImage(this.playerSpritesheetImg, this.sx, this.sy, 32, 32, 160, 160, 32, 32)
-        // old solution
-        // this.ctx.drawImage(this.playerSpritesheetImg, this.sx, this.sy, 32, 32, this.x, this.y, 32, 32)
-
         
     }
 

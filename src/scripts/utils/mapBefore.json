@@ -2,13 +2,13 @@
     "backgroundBlock": 0,
     "structures": [
         {
-            "id": 2,
+            "id": 17,
             "x": 3,
             "y": 3,
             "c": true
         },
         {
-            "id": 17,
+            "id": 2,
             "x": 6,
             "y": 6,
             "c": true
@@ -19,5 +19,14 @@
             "y": 5,
             "c": true
         }
-    ]
+    ],
+    "interactions":{
+        "portals": [
+            {
+            "x": 3,
+            "y": 3,
+            "to": 0
+            }
+        ]
+    }
 }

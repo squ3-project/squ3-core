@@ -1,6 +1,6 @@
-import Camera from "./Camera"
+import Camera from "../Camera"
 import Collision from "./Collision"
-import Rectangle from "./types/Rectangle";
+import Rectangle from "../types/Rectangle";
 
 export default class Collider{
     private blockSize:number = Collision.getBlockSize()
