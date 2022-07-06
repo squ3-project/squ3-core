@@ -30,7 +30,7 @@ export default class Interactions{
                 if(this.currentInteraction){
                     if(this.currentInteraction instanceof Portal){
                         const to = this.currentInteraction.activate()
-                        this.changeMap = (callback: (id:number) => number) => {
+                        this.plotIdToChange = (callback: (id:number) => void) => {
                             callback(to)
                         }
                         this.onActive()
@@ -40,20 +40,26 @@ export default class Interactions{
         }
         
     }
+
     /**
+     * [IN FUTURE MAYBE]
      * interaction.onChangeMap(to => {
-     * 
-     * 
+     *
      * })
-     * 
-     * 
+     *  
      */
 
+    /**
+     * Is triggered when any interaction is activated 
+     */
     public onActive(){
         throw new Error("Method not implemented.")
     }
 
-    public changeMap(callback:any):any{
+    /**
+     * Gives a callback with id of plot to change
+     */
+    public plotIdToChange(callback: (id: number) => void){
         throw new Error("Method not implemented.")
     }
 
@@ -78,16 +84,4 @@ export default class Interactions{
             } 
         }
     }
-
-    // public setCurrentInteraction(_interaction:Interaction | undefined){
-    //     this.currentInteraction = _interaction
-    // }
-
-    // public getCurrentInteraction():Interaction | undefined{
-    //     return this.currentInteraction
-    // }
-
-    // public getInteractions():Interaction[]{
-    //     return this.interactionList
-    // }
 }

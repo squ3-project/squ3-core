@@ -36,17 +36,15 @@ async function main() {
 
     // wyjscia z portali w okreslonych miejscach!
 
-    changeMap(0) // first map
+    changePlot(0) // first map
 
-    function changeMap(to:number){
+    function changePlot(to:number){
         plot = new Plot(to, jsons[to], atlas)
         player.setPosition(32,32)
         plot.addPlayer(player)
 
         player.getInteractions().onActive = () => {
-            player.getInteractions().changeMap((id:number) => {
-                changeMap(id)
-            })
+            player.getInteractions().plotIdToChange((id:number) => changePlot(id))
         }
     }
    
