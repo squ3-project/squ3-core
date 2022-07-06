@@ -75,14 +75,14 @@ function initializeArrays(){
 }
 
 function loadToFile(){
-    fs.writeFile(path.resolve(__dirname, 'map2.json'), JSON.stringify(mapObject), (err:Error) => {
+    fs.writeFile(path.resolve(__dirname, 'map3.json'), JSON.stringify(mapObject), (err:Error) => {
         if(err) throw err
     })
 }
 
 
 async function main(){
-    await createMapStrings('./mapBefore.json')
+    await createMapStrings('./mapBefore2.json')
     loadToFile()
 }
 

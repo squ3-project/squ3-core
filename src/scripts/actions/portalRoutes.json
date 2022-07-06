@@ -1,0 +1,31 @@
+[
+    {
+        "id": 0,
+        "plotId": 0,
+        "x": 3,
+        "y": 1,
+        "connectedWithId": 1
+    },
+    {
+        "id": 1,
+        "plotId": 1,
+        "x": 3,
+        "y": 3,
+        "connectedWithId": 2
+    },
+    {
+        "id": 2,
+        "plotId": 2,
+        "x": 4,
+        "y": 3,
+        "connectedWithId": 1
+    },
+    {
+        "id": 3,
+        "plotId": 2,
+        "x": 6,
+        "y": 3,
+        "connectedWithId": 0
+    }
+
+]

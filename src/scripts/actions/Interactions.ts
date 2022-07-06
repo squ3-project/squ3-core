@@ -1,9 +1,10 @@
 import KeyboardInput from "../KeyboardInput";
 import { Interaction } from "./Interaction";
 import Portal, { PortalObj } from "./Portal";
+import portalRoutes from "./portalRoutes.json"
 
 export interface InteractionList{
-    portals: PortalObj[]
+    portals: number[]
 }
 
 // any -> okreslone typy return z activate() w Interactions
@@ -14,9 +15,16 @@ export default class Interactions{
     private currentInteraction?:Interaction<any>
 
     constructor(_interactions:InteractionList){
-        _interactions.portals.forEach((portal:PortalObj) => {
-            const {x, y, to} = portal
-            this.interactionList.push(new Portal(x, y, to))        
+        _interactions.portals.forEach((id:number) => {
+            // const {x, y, to} = portal
+            const foundPortal= portalRoutes.find((portal:PortalObj) => portal.id === id)
+            if(foundPortal){
+                const foundDestinationPortal = portalRoutes.find((portal:PortalObj) => portal.id === foundPortal.connectedWithId)
+                if(foundDestinationPortal){
+                    this.interactionList.push(new Portal(foundPortal.x, foundPortal.y, foundDestinationPortal.plotId, foundDestinationPortal.x, foundDestinationPortal.y +1))
+                }
+                
+            }    
         });
 
         this.keysHandler()
@@ -29,9 +37,9 @@ export default class Interactions{
             if(key === "e" && isDown){
                 if(this.currentInteraction){
                     if(this.currentInteraction instanceof Portal){
-                        const to = this.currentInteraction.activate()
-                        this.plotIdToChange = (callback: (id:number) => void) => {
-                            callback(to)
+                        const [id, x, y] = this.currentInteraction.activate()
+                        this.plotIdToChange = (callback: (id:number, x:number, y:number) => void) => {
+                            callback(id, x, y)
                         }
                         this.onActive()
                     }
@@ -59,7 +67,7 @@ export default class Interactions{
     /**
      * Gives a callback with id of plot to change
      */
-    public plotIdToChange(callback: (id: number) => void){
+    public plotIdToChange(callback: (id: number, x:number, y:number) => void){
         throw new Error("Method not implemented.")
     }
 
