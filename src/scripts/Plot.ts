@@ -23,15 +23,15 @@ export default class Plot{
         this.id = _id
         this.atlas = _atlas
         this.mapJson = _mapJson
-        this.createLayers(_atlas)
     }
 
-    private createLayers(_atlas:Atlas):void{
+    public init(callback:() => void):void{
         GameLoop.clearQueue()
-        const backgroundLayer = new BackgroundLayer(_atlas, this.mapJson.backgroundBlockId)
-        const structureLayer = new StructureLayer(_atlas, this.mapJson.mapString)
+        const backgroundLayer = new BackgroundLayer(this.atlas, this.mapJson.backgroundBlockId)
+        const structureLayer = new StructureLayer(this.atlas, this.mapJson.mapString)
         GameLoop.addToQueue(backgroundLayer)
         GameLoop.addToQueue(structureLayer)
+        callback()
     }
 
     public addPlayer(_player:Player){
@@ -39,7 +39,7 @@ export default class Plot{
         const interactions = new Interactions(this.mapJson.interactions)
         _player.addCollision(collision)
         _player.addInteractions(interactions)
-        GameLoop.setCamera(_player.getPosition())
+        GameLoop.setCamera(_player.getPosition())  
         GameLoop.addToQueue(_player)
     }
 

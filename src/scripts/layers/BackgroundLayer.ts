@@ -14,7 +14,7 @@ export default class BackgroundLayer extends TextureLayer{
      * @param _id id of block from given Atlas to fill Layer
      */
     constructor(_atlas:Atlas, _id:number){
-        super(_atlas)        
+        super(_atlas)     
         this.drawBackground(_id)
     }
 
