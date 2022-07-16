@@ -31,14 +31,14 @@ const id = params.get("id")
 
 const jsons = [mapJson, map2Json, map3Json]
 
-const serverUrl = "http://localhost:4444"
+const serverUrl = "http://squ3-server.herokuapp.com"
 
 Display.resize(352, 352) // viewport 11x11 blocks
 KeyboardInput.listen()
 
 async function main() {
     // const atlas = new Atlas(atlasImg)
-    const atlas = new Atlas(serverUrl + "/getatlas", 3200, 3200)
+    const atlas = new Atlas(serverUrl + "/getatlas", 3200)
     await atlas.loadImage()
     const playerSkinImg = await loadImage(skin)
     const player = new Player(playerSkinImg)

@@ -6,20 +6,19 @@ export default class Atlas{
     private texturesImage:HTMLImageElement 
     private width:number = 256
     private blockWidth:number = 32
-    private height: number = 32
-    private blocksPerRow:number = this.width/this.blockWidth
+    private blocksPerRow:number 
     private blockId:[number,number][] = []
     
 
     /**
-     * Creates texture atlas from given image url
+     * Creates texture atlas from given image url and width
      * @param _url 
      */
-    constructor(_url:string, _width:number, _height:number){
+    constructor(_url:string, _width:number){
         this.texturesImage = new Image(this.width, this.width)
         this.texturesImage.src = _url
         this.width = _width
-        this.height = _height
+        this.blocksPerRow = _width / this.blockWidth
         this.cropForBlocks()
     }
 
