@@ -8,6 +8,7 @@ export abstract class Interaction<T>{
     private x:number
     private y:number
     private range = 48
+    public name = "default"
 
     /**
      * Creates Interaction object in specified coordinates on map

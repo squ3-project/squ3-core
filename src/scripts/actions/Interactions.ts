@@ -7,16 +7,13 @@ export interface InteractionList{
     portals: number[]
 }
 
-// any -> okreslone typy return z activate() w Interactions
-
 export default class Interactions{
     private interactionList:Interaction<any>[] = []
     
-    private currentInteraction?:Interaction<any>
+    private activeInteraction?:Interaction<any>
 
     constructor(_interactions:InteractionList){
         _interactions.portals.forEach((id:number) => {
-            // const {x, y, to} = portal
             const foundPortal= portalRoutes.find((portal:PortalObj) => portal.id === id)
             if(foundPortal){
                 const foundDestinationPortal = portalRoutes.find((portal:PortalObj) => portal.id === foundPortal.connectedWithId)
@@ -35,18 +32,22 @@ export default class Interactions{
             const [key, isDown] = KeyboardInput.getKeysState()
         
             if(key === "e" && isDown){
-                if(this.currentInteraction){
-                    if(this.currentInteraction instanceof Portal){
-                        const [id, x, y] = this.currentInteraction.activate()
+                if(this.activeInteraction){
+                    if(this.activeInteraction instanceof Portal){
+                        const [id, x, y] = this.activeInteraction.activate()
                         this.plotIdToChange = (callback: (id:number, x:number, y:number) => void) => {
                             callback(id, x, y)
                         }
-                        this.onActive()
+                        this.onAction()
                     }
                 }
             }
         }
         
+    }
+
+    public getActiveInteraction(){
+        return this.activeInteraction
     }
 
     /**
@@ -60,7 +61,7 @@ export default class Interactions{
     /**
      * Is triggered when any interaction is activated 
      */
-    public onActive(){
+    public onAction(){
         throw new Error("Method not implemented.")
     }
 
@@ -78,17 +79,17 @@ export default class Interactions{
      * @param _y y coordiante
      */
     public handleInteractions(_x:number, _y:number){
-        if(this.currentInteraction === undefined){
+        if(this.activeInteraction === undefined){
             this.interactionList.forEach((interaction:Interaction<any>) => {
                 if(interaction.checkIfInRange(_x, _y)){
-                    this.currentInteraction = interaction
+                    this.activeInteraction = interaction
                 }
             })
         }
 
-        if(this.currentInteraction){
-            if(!this.currentInteraction.checkIfInRange(_x, _y)){
-                this.currentInteraction = undefined
+        if(this.activeInteraction){
+            if(!this.activeInteraction.checkIfInRange(_x, _y)){
+                this.activeInteraction = undefined
             } 
         }
     }

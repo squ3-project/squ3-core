@@ -12,12 +12,13 @@ export default class Portal extends Interaction<[number, number, number]>{
     private toPlotId:number
     private toX:number
     private toY:number
+    public name = "Portal"
 
     /**
      * Creates Portal interaction in x, y coordinates
-     * @param _x - x coordinate on Plot
-     * @param _y - y coordiante on Plot
-     * @param _toMapId - map id destination
+     * @param _x - x coordinate (current plot)
+     * @param _y - y coordinate (current plot)
+     * @param _toPlotId - destination plot id
      * @param _toX - destination coordinate x
      * @param _toY - destination coordinate y
      */
